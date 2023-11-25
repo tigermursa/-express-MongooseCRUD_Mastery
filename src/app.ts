@@ -11,6 +11,8 @@ app.use(express.json());
 //user routing
 app.use('/api/data/users', userRouter);
 
+
+//initial get request here
 app.get('/', (req: Request, res: Response) => {
   res.send('The main server running !!');
 });

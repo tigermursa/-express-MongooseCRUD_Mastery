@@ -7,7 +7,7 @@ const createUser = async (req: Request, res: Response) => {
   try {
     const userData = req.body;
 
-    //validating using zod
+   //zod validating ...
     const zodValidatedUserData = userValidationSchema.parse(userData);
 
     const result = await UserService.createUserIntoDB(zodValidatedUserData);
@@ -71,7 +71,7 @@ const updateUserInfo = async (req: Request, res: Response) => {
     const userData = req.body;
     const { userId } = req.params;
 
-    //validating using zod
+    //zod validating ......
     const zodValidatedUserData = userValidationSchema.parse(userData);
 
     const result = await UserService.updateUserInfoFromDB(

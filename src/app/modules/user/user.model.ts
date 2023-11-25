@@ -11,22 +11,22 @@ import config from '../../config';
 const fullName = new Schema<TFullName>({
     firstName: {
         type: String,
-        required: [true, 'firstName is required'],
+        required: [true, 'first name is required'],
         trim: true,
     },
     lastName: {
         type: String,
-        required: [true, 'lastName is required'],
+        required: [true, 'last name is required'],
         trim: true,
     },
 });
 
 const address = new Schema<TAddress>({
-    street: { type: String, required: [true, 'street is required'], trim: true },
+    street: { type: String, required: [true, 'streets is required'], trim: true },
     city: { type: String, required: [true, 'city is required'], trim: true },
     country: {
         type: String,
-        required: [true, 'country is required'],
+        required: [true, 'Country is required'],
         trim: true,
     },
 });
@@ -93,7 +93,7 @@ const userSchema = new Schema<TUser, UserModel>({
     orders: { type: [order] },
 });
 
-//hashing the password field
+// password field Will hash 
 userSchema.pre('save', async function (next) {
     if (this.password) {
         this.password = await bcrypt.hash(this.password, Number(config.salt_round));
@@ -103,13 +103,13 @@ userSchema.pre('save', async function (next) {
 
 
 
-//isUserExists method definition
+
 userSchema.statics.isUserExists = async function (userId: number) {
     const existingUser = await User.findOne({ userId: userId });
     return existingUser;
 };
 
-//password encryption method definition
+
 userSchema.statics.passwordEncryption = async function (password: string) {
     const encryptedPassword = await bcrypt.hash(password, Number(config.salt_round));
     return encryptedPassword;

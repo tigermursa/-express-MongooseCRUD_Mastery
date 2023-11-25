@@ -6,7 +6,7 @@ async function main() {
   await mongoose.connect(config.dataBaseUrl as string);
 
   app.listen(config.port, () => {
-    console.log(`Mighty server  listening on port ${config.port}`);
+    console.log(`the Mighty server  listening on port ${config.port}`);
   });
 }
 

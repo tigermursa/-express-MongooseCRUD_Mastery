@@ -16,7 +16,9 @@ app.use('/api/data/users', userRouter);
 app.get('/', (req: Request, res: Response) => {
   res.send('The main server running !!');
 });
-//404 route
+
+
+//404 route here
 app.all('*', (req: Request, res: Response) => {
   res.status(400).json({
     success: false,

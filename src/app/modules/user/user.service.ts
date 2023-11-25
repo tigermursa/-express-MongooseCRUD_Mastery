@@ -1,6 +1,6 @@
 import { TOrder, TUser } from './user.interface';
 import { User } from './user.model';
-
+//will make all services here
 const createUserIntoDB = async (userData: TUser) => {
   if (await User.isUserExists(userData.userId)) {
     throw new Error('User already exists');
@@ -132,6 +132,9 @@ const getSingleUserOrdersTotalPriceFromDB = async (userId: number) => {
 
   return result[0];
 };
+
+
+
 
 export const UserService = {
   createUserIntoDB,

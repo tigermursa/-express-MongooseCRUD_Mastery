@@ -1,17 +1,20 @@
 import { TOrder, TUser } from './user.interface';
 import { User } from './user.model';
 //will make all services here
-const createUserIntoDB = async (userData: TUser) => {
-  if (await User.isUserExists(userData.userId)) {
-    throw new Error('User already exists');
-  }
 
-  const result = await User.create(userData);
-  const { password, ...resultWithOutPassword } = result.toObject();
 
-  return resultWithOutPassword;
-};
 
+//delete
+const deleteUserFromDB = async (userId: number) => {
+    if (!(await User.isUserExists(userId))) {
+      throw new Error('User not found!');
+    }
+    const result = await User.deleteOne({ userId: userId });
+    return result;
+  };
+
+
+//get all users 
 const getAllUsersFromDB = async () => {
   const result = await User.find(
     {},
@@ -20,6 +23,8 @@ const getAllUsersFromDB = async () => {
   return result;
 };
 
+
+//get single users
 const getSingleUsersFromDB = async (userId: number) => {
   if (!(await User.isUserExists(userId))) {
     throw new Error('User not found!');
@@ -41,6 +46,8 @@ const getSingleUsersFromDB = async (userId: number) => {
   return result;
 };
 
+
+//get update  users
 const updateUserInfoFromDB = async (userId: number, userData: TUser) => {
   if (!(await User.isUserExists(userId))) {
     throw new Error('User not found!');
@@ -58,13 +65,7 @@ const updateUserInfoFromDB = async (userId: number, userData: TUser) => {
   return result;
 };
 
-const deleteUserFromDB = async (userId: number) => {
-  if (!(await User.isUserExists(userId))) {
-    throw new Error('User not found!');
-  }
-  const result = await User.deleteOne({ userId: userId });
-  return result;
-};
+
 
 //orders
 const addNewProductOrderIntoDB = async (
@@ -134,6 +135,17 @@ const getSingleUserOrdersTotalPriceFromDB = async (userId: number) => {
 };
 
 
+//create users
+const createUserIntoDB = async (userData: TUser) => {
+    if (await User.isUserExists(userData.userId)) {
+      throw new Error('User already exists');
+    }
+  
+    const result = await User.create(userData);
+    const { password, ...resultWithOutPassword } = result.toObject();
+  
+    return resultWithOutPassword;
+  };
 
 
 export const UserService = {

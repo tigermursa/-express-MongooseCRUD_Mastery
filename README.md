@@ -22,7 +22,7 @@ Endpoint: https://assignment-2-iota.vercel.app/api/users
 
 ## 2.Get All Users
 Method: GET
-Endpoint URL : https://assignment-2-iota.vercel.app/api//users/allUsers
+Endpoint URL : https://assignment-2-iota.vercel.app/api/users/allUsers
 
 ## 3.Get Single User
 Method: GET
@@ -47,6 +47,6 @@ Method: GET
 Endpoint: https://assignment-2-iota.vercel.app/api/users/{userId}/orders/
 
 
-8.get Total Price
+## 8.get Total Price
 Method: GET
 Endpoint: https://assignment-2-iota.vercel.app/api/users/{userId}/orders/total-price

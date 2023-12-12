@@ -12,7 +12,28 @@ app.use(express.json());
 app.use('/api/users', userRouter);
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
+  const html = `
+    <html>
+      <head>
+        <style>
+          body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+          }
+          h1 {
+            color: green;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>The main server running well!!  check all the api from gitHub Readme file</h1>
+      </body>
+    </html>
+  `;
+  res.send(html);
 });
 
 app.all('*', (req: Request, res: Response) => {

@@ -1,30 +1,24 @@
 import { TOrder, TUser } from './user.interface';
 import { User } from './user.model';
-//will make all services here
 
+const createUserIntoDB = async (userData: TUser) => {
+  if (await User.isUserExists(userData.userId)) {
+    throw new Error('User already exists');
+  }
 
+  const result = await User.create(userData);
+  const { password, ...resultWithOutPassword } = result.toObject();
+  return resultWithOutPassword;
 
-//delete
-const deleteUserFromDB = async (userId: number) => {
-    if (!(await User.isUserExists(userId))) {
-      throw new Error('User not found!');
-    }
-    const result = await User.deleteOne({ userId: userId });
-    return result;
-  };
+};
 
-
-//get all users 
 const getAllUsersFromDB = async () => {
-  const result = await User.find(
-    {},
-    { username: 1, fullName: 1, age: 1, email: 1, address: 1, _id: 0 },
-  );
+  const result = await User.find();
   return result;
 };
 
 
-//get single users
+
 const getSingleUsersFromDB = async (userId: number) => {
   if (!(await User.isUserExists(userId))) {
     throw new Error('User not found!');
@@ -46,26 +40,41 @@ const getSingleUsersFromDB = async (userId: number) => {
   return result;
 };
 
-
-//get update  users
-const updateUserInfoFromDB = async (userId: number, userData: TUser) => {
+const updateUserInfoFromDB = async (
+  userId: number,
+  userData: Partial<TUser>,
+) => {
   if (!(await User.isUserExists(userId))) {
     throw new Error('User not found!');
   }
 
-  const encryptedPassword = await User.passwordEncryption(userData.password);
-  userData.password = encryptedPassword;
+  if (userData.password) {
+    const encryptedPassword = await User.passwordEncryption(
+      userData.password as string,
+    );
+    userData.password = encryptedPassword;
+  }
 
-  const result = await User.updateOne(
-    { userId: userId },
-    {
-      ...userData,
-    },
-  );
-  return result;
+  
+
+  const result = await User.findOneAndUpdate({ userId: userId }, userData, {
+    new: true,
+  });
+
+  if(result){
+    const { password,_id,orders, ...resultWithOutPassword } = result.toObject();
+    return resultWithOutPassword;
+  }
+
 };
 
-
+const deleteUserFromDB = async (userId: number) => {
+  if (!(await User.isUserExists(userId))) {
+    throw new Error('User not found!');
+  }
+  const result = await User.deleteOne({ userId: userId });
+  return result;
+};
 
 //orders
 const addNewProductOrderIntoDB = async (
@@ -133,20 +142,6 @@ const getSingleUserOrdersTotalPriceFromDB = async (userId: number) => {
 
   return result[0];
 };
-
-
-//create users
-const createUserIntoDB = async (userData: TUser) => {
-    if (await User.isUserExists(userData.userId)) {
-      throw new Error('User already exists');
-    }
-  
-    const result = await User.create(userData);
-    const { password, ...resultWithOutPassword } = result.toObject();
-  
-    return resultWithOutPassword;
-  };
-
 
 export const UserService = {
   createUserIntoDB,

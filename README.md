@@ -15,3 +15,38 @@ Features
 
 Live Demo
 https://assignment-2-iota.vercel.app/
+
+## 1.Create User
+Method: POST
+Endpoint: https://assignment-2-iota.vercel.app/api/users
+
+## 2.Get All Users
+Method: GET
+Endpoint URL : https://assignment-2-iota.vercel.app/api//users/allUsers
+
+## 3.Get Single User
+Method: GET
+Endpoint: https://assignment-2-iota.vercel.app/api/users/{userId}
+
+## 4.Update user
+Method: PUT
+Endpoint: https://assignment-2-iota.vercel.app/api/users/{userId}
+
+## 5.Delete user
+Method: DELETE
+Endpoint: https://assignment-2-iota.vercel.app/api/users/{userId}
+
+
+## 6.update products
+Method: PUT
+Endpoint: https://assignment-2-iota.vercel.app/api/users/{userId}/orders
+
+
+## 7.getAll products
+Method: GET
+Endpoint: https://assignment-2-iota.vercel.app/api/users/{userId}/orders/
+
+
+8.get Total Price
+Method: GET
+Endpoint: https://assignment-2-iota.vercel.app/api/users/{userId}/orders/total-price
